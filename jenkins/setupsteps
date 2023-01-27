@@ -1,0 +1,10 @@
+Downloading and running Jenkins in Docker
+
+
+If you already have docker installed on the machine all you need to do is run this command and it will pull jenkins images from the jub and run it on port 86 as I am testing the environment on my local computer
+
+docker run -d --name Jenkins -p 86:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts-jdk11
+
+to login into the container to get the password
+
+docker exec -it containerID /bin/sh
