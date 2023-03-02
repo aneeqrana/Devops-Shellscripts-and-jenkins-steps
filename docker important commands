@@ -1,0 +1,119 @@
+✔docker version - Shows the current Docker version installed on the system.
+✔docker info - Displays information about the current Docker installation and configuration.
+✔docker run - Runs a Docker container.
+✔docker ps - Lists the currently running Docker containers.
+✔docker images - Lists the Docker images available on the system.
+✔docker pull - Downloads a Docker image from a Docker registry.
+✔docker push - Uploads a Docker image to a Docker registry.
+✔docker build - Builds a Docker image from a Dockerfile.
+✔docker tag - Tags a Docker image with a name that can be used for uploading to a Docker registry.
+✔docker commit - Creates a new Docker image from a running container.
+✔docker start - Starts a stopped Docker container.
+✔docker stop - Stops a running Docker container.
+✔docker restart - Restarts a running Docker container.
+✔docker rm - Removes a stopped Docker container.
+✔docker rmi - Removes a Docker image.
+✔docker logs - Displays the logs of a running Docker container.
+✔docker inspect - Returns low-level information on a Docker object (container, image, network, etc.)
+✔docker network - Manages Docker networks.
+✔docker volume - Manages Docker volumes.
+✔docker-compose - Manages multi-container Docker applications.
+
+
+
+Javascript app on docker 
+requirement 
+
+
+MongoDB 
+JS 
+Commit in GIT 
+Jenkins to build artifacts 
+
+
+
+Then pushed to Docker repo then you have a development server that pulls the image from the private Repo and pulls JS app image MongoDB   
+
+The first thing we ned to do is pull the mongoDB
+
+docker pull mongo
+docker pull mongo-express
+
+
+Whats docker network?
+Docker network is isolated network where the  containers are deployes at docker on the same network so they can talk to each other without using port 
+
+docker commands 
+
+to list the network 
+docker network ls 
+
+create network
+docker network create mongo-network
+
+docker images list 
+docker images
+
+remove image 
+docker image rm --force redis
+
+docker image prune -a --force --filter "until=240h"
+
+
+To stop all running Docker containers, you can use the following command:
+
+docker stop $(docker ps -q)
+
+    Remove any unused Docker containers:
+
+docker rm $(docker ps -a -q)
+
+    Remove any unused Docker images:
+
+docker rmi $(docker images -q)
+
+    Use the Docker system prune command to remove any unused data, such as containers, networks, and volumes:
+
+docker system prune
+
+    If there are still large files in the /var/lib/docker/overlay2 directory, they may be part of a Docker image that is no longer used. To identify these files, you can use the following command:
+
+
+sudo du -sh /var/lib/docker/overlay2/*
+
+docker pull ubuntu 
+
+
+docker create -it --name myfirstcontainer ubuntu
+
+to restart docker compose service 
+
+docker-compose restart nginx-proxy
+
+
+to start a containers
+docker start myfirstcontainer
+
+to login to the containers
+
+docker attach myfirstcontainer 
+
+or 
+
+docker exec -it containerID /bin/sh
+
+docker exec -it containerID bash
+
+docker attach 
+
+
+to setup mongoDB 
+docker run -p 27017:27017 -d -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password --name mongodb --net mongo-network mongo
+
+mongo express the UI for mongoDB 
+docker run -d -p 8081:8081 -e ME_CONFIG_MONGODB_AUTH_USERNAME=admin -e ME_CONFIG_MONGODB_AUTH_PASSWORD=password --net mongo-network --name mongo-express -e ME_CONFIG_MONGODB_SERVER=mongodb mongo-express
+
+
+to start an image or ontainer 
+docker start mongo
+docker start mongo-express
